@@ -31,12 +31,16 @@ def sections(content):
     return content.find_element(By.XPATH, sections_path)
 
 
-def test_check_entry_page_headers_consistence(content):
+def test_check_entry_page_header_consistence(content):
     welcome_header_path = '/html/body/div[2]/div/h1'
-    sub_header_path = '/html/body/div[2]/div/h2'
     header1 = content.find_element(By.XPATH, welcome_header_path)
-    header2 = content.find_element(By.XPATH, sub_header_path)
     assert "Welcome to the-internet" == header1.text
+    assert "heading" == header1.get_attribute("class")
+
+
+def test_check_entry_page_sub_header_consistence(content):
+    sub_header_path = '/html/body/div[2]/div/h2'
+    header2 = content.find_element(By.XPATH, sub_header_path)
     assert "Available Examples" == header2.text
 
 
