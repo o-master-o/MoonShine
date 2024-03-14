@@ -1,17 +1,16 @@
 import pytest
 import requests
-from selenium.webdriver.support.wait import WebDriverWait
 # from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
 from data import expected_sections_data, authorization_required_resources
-from utils import ENTRY_POINT, chrome
+from utils import ENTRY_POINT, chrome, wait_till_page_loaded
 
 
 @pytest.fixture(scope='module')
 def content(chrome):
     chrome.get(ENTRY_POINT)
-    WebDriverWait(chrome, timeout=10).until(lambda d: d.execute_script("return document.readyState") == "complete")
+    wait_till_page_loaded(chrome)
     return chrome
 
 
