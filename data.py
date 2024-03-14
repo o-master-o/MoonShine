@@ -48,4 +48,5 @@ expected_sections_data = [
 authorization_required_resources = [
     "https://the-internet.herokuapp.com/basic_auth",
     "https://the-internet.herokuapp.com/digest_auth",
+    "https://the-internet.herokuapp.com/download_secure",
 ]

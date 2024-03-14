@@ -4,19 +4,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 # from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 
-from controller import ChromeDriver
 from data import expected_sections_data, authorization_required_resources
-
-ENTRY_POINT = 'https://the-internet.herokuapp.com/'
-
-
-@pytest.fixture(scope='module')
-def chrome():
-    driver = ChromeDriver()
-    try:
-        yield driver
-    finally:
-        driver.quit()
+from utils import ENTRY_POINT, chrome
 
 
 @pytest.fixture(scope='module')
