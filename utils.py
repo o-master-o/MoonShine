@@ -6,12 +6,13 @@ from controller import ChromeDriver
 ENTRY_POINT = 'https://the-internet.herokuapp.com/'
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='module')
 def chrome():
     driver = ChromeDriver()
     try:
         yield driver
     finally:
+        pass
         driver.quit()
 
 

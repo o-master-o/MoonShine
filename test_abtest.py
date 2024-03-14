@@ -6,7 +6,7 @@ from utils import ENTRY_POINT, chrome, wait_till_page_loaded
 
 @pytest.fixture(scope='module')
 def content(chrome):
-    chrome.get(f"{ENTRY_POINT}/abtest")
+    chrome.get(f"{ENTRY_POINT}abtest")
     wait_till_page_loaded(chrome)
     return chrome
 
@@ -40,7 +40,9 @@ def test_ab_test_variation_text(content):
     h3 = content.find_element(By.TAG_NAME, 'h3')
     p = content.find_element(By.TAG_NAME, 'p')
     assert "A/B Test Variation 1" == h3.text, "Heading text does not match expected"
-    expected_paragraph_text = "Also known as split testing. This is a way in which businesses are able to simultaneously test and learn different versions of a page to see which text and/or functionality works best towards a desired outcome (e.g. a user action such as a click-through)."
+    expected_paragraph_text = ("Also known as split testing. This is a way in which businesses are able to simultaneously test "
+                               "and learn different versions of a page to see which text and/or functionality works best towards "
+                               "a desired outcome (e.g. a user action such as a click-through).")
     assert expected_paragraph_text == p.text, "Paragraph text does not match expected"
 
 
