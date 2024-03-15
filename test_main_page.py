@@ -4,12 +4,12 @@ import requests
 from selenium.webdriver.common.by import By
 
 from data import expected_sections_data, authorization_required_resources
-from utils import ENTRY_POINT, chrome, wait_till_page_loaded
+from utils import HTTPS_ENTRY_LINK, chrome, wait_till_page_loaded
 
 
 @pytest.fixture(scope='module')
 def content(chrome):
-    chrome.get(ENTRY_POINT)
+    chrome.get(HTTPS_ENTRY_LINK)
     wait_till_page_loaded(chrome)
     return chrome
 

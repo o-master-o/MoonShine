@@ -1,12 +1,14 @@
+from pprint import pprint
+
 import pytest
 from selenium.webdriver.common.by import By
 
-from utils import ENTRY_POINT, chrome, wait_till_page_loaded
+from utils import HTTPS_ENTRY_LINK, chrome, wait_till_page_loaded
 
 
 @pytest.fixture(scope='module')
 def content(chrome):
-    chrome.get(f"{ENTRY_POINT}abtest")
+    chrome.get(f"{HTTPS_ENTRY_LINK}abtest")
     wait_till_page_loaded(chrome)
     return chrome
 
@@ -30,10 +32,14 @@ def test_scripts_and_stylesheets(content):
 
 
 def test_image_attributes(content):
-    image = content.find_element(By.TAG_NAME, 'img')
-    assert "https://github.com/tourdedave/the-internet" == image.get_attribute("href"), "Image link incorrect"
-    assert "/img/forkme_right_green_007200.png" == image.get_attribute("src"), "Image source incorrect"
+    image = content.find_element(By.XPATH, '/html/body/div[2]/a/img')
+    assert f"{HTTPS_ENTRY_LINK}img/forkme_right_green_007200.png" == image.get_attribute("src"), "Image source incorrect"
     assert "Fork me on GitHub" == image.get_attribute("alt"), "Image alt text incorrect"
+
+
+def test_image_link(content):
+    link = content.find_element(By.XPATH, '/html/body/div[2]/a')
+    assert "https://github.com/tourdedave/the-internet" == link.get_attribute("href")
 
 
 def test_ab_test_variation_text(content):

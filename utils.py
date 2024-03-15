@@ -3,7 +3,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from controller import ChromeDriver
 
-ENTRY_POINT = 'https://the-internet.herokuapp.com/'
+ENTRY_LINK = 'the-internet.herokuapp.com/'
+HTTPS_ENTRY_LINK = f'https://{ENTRY_LINK}'
 
 
 @pytest.fixture(scope='module')
