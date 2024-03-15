@@ -1,16 +1,20 @@
 import time
 
 import pytest
+from selenium.common import TimeoutException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
 
-from utils import ENTRY_LINK, chrome, wait_till_page_loaded
+from controller import ChromeDriver
+from utils import ENTRY_LINK, chrome, wait_till_page_loaded, HTTPS_ENTRY_LINK
 
 username = "admin"
 password = "admin"
 url_with_credentials = f"https://{username}:{password}@{ENTRY_LINK}basic_auth"
 
 
-@pytest.fixture(scope='module')
+@pytest.fixture()
 def content(chrome):
     chrome.get(url_with_credentials)
     wait_till_page_loaded(chrome)
@@ -36,3 +40,16 @@ def test_github_link(content):
 def test_footer_link(content):
     footer_link = content.find_element(By.XPATH, '//div[@id="page-footer"]//a')
     assert footer_link.get_attribute('href') == "http://elementalselenium.com/", "The footer link URL is not correct"
+
+
+url_without_credentials = f"{HTTPS_ENTRY_LINK}basic_auth"
+
+
+def test_pege_is_inaccessible_without_credentials():
+    driver = ChromeDriver()
+    try:
+        with pytest.raises(TimeoutException):
+            driver.get(url_without_credentials)
+            WebDriverWait(driver, 5).until(EC.alert_is_present())
+    finally:
+        driver.quit()

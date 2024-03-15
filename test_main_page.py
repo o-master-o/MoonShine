@@ -1,6 +1,6 @@
 import pytest
 import requests
-# from selenium.webdriver.support import expected_conditions as EC
+
 from selenium.webdriver.common.by import By
 
 from data import expected_sections_data, authorization_required_resources
