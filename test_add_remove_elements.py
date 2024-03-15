@@ -14,13 +14,17 @@ def content(chrome):
     return chrome
 
 
-def test_add_element(content):
+def test_verify_that_the_exact_amount_of_the_new_elements_has_been_added(content):
     add_button = content.find_element(By.XPATH, '//button[contains(text(), "Add Element")]')
-    add_button.click()  # Click the 'Add Element' button to add a new element
 
-    # Verify that the new element has been added
+    add_button.click()
     added_elements = content.find_elements(By.CLASS_NAME, 'added-manually')
-    assert len(added_elements) > 0, "No new elements were added"
+    assert len(added_elements) == 1, "No new elements were added"
+
+    add_button.click()
+    add_button.click()
+    added_elements = content.find_elements(By.CLASS_NAME, 'added-manually')
+    assert len(added_elements) == 3, "No new elements were added"
 
 
 def test_delete_element(content):
