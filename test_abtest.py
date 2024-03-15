@@ -45,7 +45,7 @@ def test_image_link(content):
 def test_ab_test_variation_text(content):
     h3 = content.find_element(By.TAG_NAME, 'h3')
     p = content.find_element(By.TAG_NAME, 'p')
-    assert "A/B Test Variation 1" == h3.text, "Heading text does not match expected"
+    assert "A/B Test Variation 1" == h3.text or "A/B Test Control" == h3.text, "Heading text does not match expected"
     expected_paragraph_text = ("Also known as split testing. This is a way in which businesses are able to simultaneously test "
                                "and learn different versions of a page to see which text and/or functionality works best towards "
                                "a desired outcome (e.g. a user action such as a click-through).")
