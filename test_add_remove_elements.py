@@ -27,23 +27,19 @@ def test_verify_that_the_exact_amount_of_the_new_elements_has_been_added(content
     assert len(added_elements) == 3, "No new elements were added"
 
 
-def test_delete_element(content):
-    # Ensure there's at least one element to delete
+def test_verify_that_the_exact_amount_of_the_elements_has_been_deleted(content):
     add_button = content.find_element(By.XPATH, '//button[contains(text(), "Add Element")]')
     add_button.click()
-
-    # Get the count of elements before deletion
+    add_button.click()
+    add_button.click()
     initial_count = len(content.find_elements(By.CLASS_NAME, 'added-manually'))
 
-    # Click the 'Delete' button on the first added element
-    delete_button = content.find_element(By.CLASS_NAME, 'added-manually')
-    delete_button.click()
-
-    # Get the count of elements after deletion
+    delete_buttons = content.find_elements(By.CLASS_NAME, 'added-manually')
+    delete_buttons[0].click()
+    delete_buttons[1].click()
     final_count = len(content.find_elements(By.CLASS_NAME, 'added-manually'))
 
-    # Verify that one element has been removed
-    assert final_count == initial_count - 1, "Element was not deleted"
+    assert final_count == initial_count - 2, "Element was not deleted"
 
 
 def test_footer_link_and_text(content):
