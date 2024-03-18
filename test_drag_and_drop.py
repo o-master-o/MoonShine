@@ -2,32 +2,38 @@ import pytest
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 
 from utils import HTTPS_ENTRY_LINK, chrome, wait_till_page_loaded
+from selenium.webdriver.support import expected_conditions as EC
 
 
 @pytest.fixture(scope='module')
 def content(chrome):
-    chrome.get(f"{HTTPS_ENTRY_LINK}context_menu")
+    chrome.get(f"{HTTPS_ENTRY_LINK}drag_and_drop")
     wait_till_page_loaded(chrome)
     return chrome
 
 
-def test_context_menu(content):
-    context_menu_box = content.find_element(By.ID, 'hot-spot')
-    actions = ActionChains(content)
-    actions.context_click(context_menu_box).perform()
-    WebDriverWait(content, 10).until(EC.alert_is_present())
-    alert_popup = content.switch_to.alert
+def test_when_drag_col_a_to_col_b_columns_should_swap(content):
+    col_a = content.find_element(By.ID, 'column-a')
+    col_b = content.find_element(By.ID, 'column-b')
 
-    assert alert_popup.text == "You selected a context menu", "Alert text is not as expected"
-    alert_popup.accept()
+    init_a_text = col_a.find_element(By.TAG_NAME, 'header').text
+    init_b_text = col_b.find_element(By.TAG_NAME, 'header').text
+
+    actions = ActionChains(content)
+    actions.drag_and_drop(col_a, col_b).perform()
+
+    new_a_text = col_a.find_element(By.TAG_NAME, 'header').text
+    new_b_text = col_b.find_element(By.TAG_NAME, 'header').text
+
+    assert new_a_text == init_b_text, "Column A text did not swap correctly"
+    assert new_b_text == init_a_text, "Column B text did not swap correctly"
 
 
 def test_header_content(content):
     header = content.find_element(By.CSS_SELECTOR, '#content h3')
-    assert header.text == "Context Menu", "Header text is not as expected"
+    assert header.text == "Drag and Drop", "Header text is not as expected"
 
 
 def test_footer_link_and_text(content):

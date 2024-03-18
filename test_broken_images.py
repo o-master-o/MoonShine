@@ -1,5 +1,3 @@
-import time
-
 import pytest
 import requests
 from selenium.webdriver.common.by import By
@@ -11,7 +9,6 @@ from utils import HTTPS_ENTRY_LINK, chrome, wait_till_page_loaded
 def content(chrome):
     chrome.get(f"{HTTPS_ENTRY_LINK}broken_images")
     wait_till_page_loaded(chrome)
-    time.sleep(10)
     return chrome
 
 

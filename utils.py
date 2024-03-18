@@ -13,7 +13,6 @@ def chrome():
     try:
         yield driver
     finally:
-        pass
         driver.quit()
 
 

@@ -1,5 +1,3 @@
-import time
-
 import pytest
 from selenium.common import TimeoutException
 from selenium.webdriver.common.by import By
@@ -18,7 +16,6 @@ url_with_credentials = f"https://{username}:{password}@{ENTRY_LINK}basic_auth"
 def content(chrome):
     chrome.get(url_with_credentials)
     wait_till_page_loaded(chrome)
-    time.sleep(5)
     return chrome
 
 

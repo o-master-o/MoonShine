@@ -1,5 +1,3 @@
-import time
-
 import pytest
 from selenium.webdriver.common.by import By
 
@@ -10,7 +8,6 @@ from utils import HTTPS_ENTRY_LINK, chrome, wait_till_page_loaded
 def content(chrome):
     chrome.get(f"{HTTPS_ENTRY_LINK}add_remove_elements/")
     wait_till_page_loaded(chrome)
-    time.sleep(15)
     return chrome
 
 
