@@ -1,10 +1,8 @@
 import pytest
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
 
 from utils import HTTPS_ENTRY_LINK, chrome, wait_till_page_loaded
-from selenium.webdriver.support import expected_conditions as EC
 
 
 @pytest.fixture(scope='module')
