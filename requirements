@@ -1,0 +1,7 @@
+chromedriver-py
+selenium
+requests
+
+pytest
+pytest-mock
+mock
